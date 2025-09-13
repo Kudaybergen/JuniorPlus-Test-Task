@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import { NotesCategoryEntity } from '../modules/notes-category/entities/notes-category.entity';
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -7,10 +8,11 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME || 'techworks_user',
     password: process.env.DB_PASSWORD || 'techworks_password',
     database: process.env.DB_NAME || 'techworks_db',
-    entities: [],
+    entities: [NotesCategoryEntity],
     synchronize: false,
     logging: process.env.NODE_ENV !== 'production',
     migrations: ['src/migrations/*.ts'],
+    migrationsTableName: 'migrations',
     subscribers: ['src/subscribers/*.ts'],
 });
 
