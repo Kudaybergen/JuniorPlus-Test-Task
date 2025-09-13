@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: testTastPostgres
+    restart: always
+    environment:
+      POSTGRES_DB: techworks_db
+      POSTGRES_USER: techworks_user
+      POSTGRES_PASSWORD: techworks_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - techworks_network
+
+  backend:
+    build: .
+    container_name: testTastBackend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: techworks_user
+      DB_PASSWORD: techworks_password
+      DB_NAME: techworks_db
+      NODE_ENV: development
+    depends_on:
+      - postgres
+    networks:
+      - techworks_network
+
+volumes:
+  postgres_data:
+
+networks:
+  techworks_network:
+    driver: bridge
