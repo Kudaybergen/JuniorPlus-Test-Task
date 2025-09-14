@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from 'swagger-ui-express';
 
@@ -28,6 +29,15 @@ const swaggerOptions = {
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+// Enable CORS for all origins (in production, specify your frontend domain)
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(express.json());
