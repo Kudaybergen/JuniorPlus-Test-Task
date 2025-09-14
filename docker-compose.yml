@@ -33,6 +33,22 @@ services:
     networks:
       - techworks_network
 
+  frontend:
+    build: ./front
+    container_name: testTastFrontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:5000
+    depends_on:
+      - backend
+    networks:
+      - techworks_network
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+
 volumes:
   junior-plus-test-task-postgres-data:
 
