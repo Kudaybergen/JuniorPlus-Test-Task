@@ -12,17 +12,22 @@ export const AppDataSource = new DataSource({
     entities: [NotesCategoryEntity, NotesEntity],
     synchronize: false,
     logging: process.env.NODE_ENV !== 'production',
-    migrations: ['src/migrations/*.ts'],
+    migrations: [__dirname + '/../migrations/*.js'],
     migrationsTableName: 'migrations',
-    subscribers: ['src/subscribers/*.ts'],
+    subscribers: [__dirname + '/../subscribers/*.js'],
 });
 
 export const initializeDatabase = async (): Promise<void> => {
     try {
         await AppDataSource.initialize();
-        console.log('✅ Database connection established successfully');
+        console.log('Database connection established successfully');
+
+        // Auto-run migrations
+        console.log('Running migrations...');
+        await AppDataSource.runMigrations();
+        console.log('Migrations completed successfully');
     } catch (error) {
-        console.error('❌ Error during database initialization:', error);
+        console.error('Error during database initialization:', error);
         throw error;
     }
 };

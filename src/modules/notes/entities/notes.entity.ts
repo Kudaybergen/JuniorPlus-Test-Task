@@ -2,7 +2,6 @@ import { Entity, Column, ManyToOne } from "typeorm";
 import { BaseEntity } from "../../../common/base.sql.entity";
 import { NotesCategoryEntity } from "../../notes-category/entities/notes-category.entity";
 
-
 @Entity('notes')
 export class NotesEntity extends BaseEntity {
     @Column({ type: 'varchar', length: 255 })
@@ -14,6 +13,6 @@ export class NotesEntity extends BaseEntity {
     @Column({ type: 'uuid' })
     categoryId!: string;
 
-    @ManyToOne(() => NotesCategoryEntity, (category) => category.id)
+    @ManyToOne(() => NotesCategoryEntity)
     category!: NotesCategoryEntity;
 }

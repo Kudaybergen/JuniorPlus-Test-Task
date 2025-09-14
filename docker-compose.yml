@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - junior-plus-test-task-postgres-data:/var/lib/postgresql/data
     networks:
       - techworks_network
 
@@ -34,7 +34,7 @@ services:
       - techworks_network
 
 volumes:
-  postgres_data:
+  junior-plus-test-task-postgres-data:
 
 networks:
   techworks_network:
