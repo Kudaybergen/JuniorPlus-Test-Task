@@ -54,6 +54,14 @@ const router = createRouter({
             }
         },
         {
+            path: '/categories/create',
+            name: 'create-category',
+            component: () => import('@/views/CreateCategoryView.vue'),
+            meta: {
+                title: 'Create Category'
+            }
+        },
+        {
             path: '/categories/:id/notes',
             name: 'category-notes',
             component: () => import('@/views/CategoryNotesView.vue'),
